@@ -21,7 +21,10 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB Atlas connected successfully'))
   .catch(err => {
     console.error('MongoDB connection error:', err);
-    process.exit(1);
+    // Don't exit in production, just log the error
+    if (process.env.NODE_ENV === 'development') {
+      process.exit(1);
+    }
   });
 
 // Routes
